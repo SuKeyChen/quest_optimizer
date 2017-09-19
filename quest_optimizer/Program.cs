@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using MapleLib.WzLib;
 using MapleLib.WzLib.WzProperties;
 
@@ -29,22 +30,22 @@ namespace quest_optimizer
                 switch(arg)
                 {
                     case "-silent":
-                    {
-                        silent = true;
-                        break;
-                    }
-                    
+                        {
+                            silent = true;
+                            break;
+                        }
+
                     case "-noupdate":
-                    {
-                        autoupdate = false;
-                        break;
-                    }
-                    
+                        {
+                            autoupdate = false;
+                            break;
+                        }
+
                     case "-searchmode":
-                    {
-                        SearchMode();
-                        return;
-                    }
+                        {
+                            SearchMode();
+                            return;
+                        }
                 }
             }
 
@@ -234,12 +235,20 @@ namespace quest_optimizer
                         continue;
                     }
 
+                    if(searchStr.Length < 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"--- ERROR: Make sure your keyword is longer than 2 letters!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        continue;
+                    }
+
                     if("qq".Equals(searchStr))
                     {
                         break;
                     }
 
-                    var results = new List<string>();
+                    var results = new List<Tuple<int, string>>();
 
                     foreach(var item in all)
                     {
@@ -253,13 +262,13 @@ namespace quest_optimizer
 
                         if(name.ToLower().Contains(searchStr) || id.Contains(searchStr))
                         {
-                            results.Add(id + " // " + name);
+                            results.Add(new Tuple<int, string>(int.Parse(id), name));
                         }
                     }
 
-                    foreach(string item in results)
+                    foreach(var item in results)
                     {
-                        Console.WriteLine(item);
+                        Console.WriteLine(item.Item1 + " // " + item.Item2);
                     }
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -268,19 +277,24 @@ namespace quest_optimizer
 
                     if(results.Count > 0)
                     {
-                        Console.Write("Save the results into a file? (y/n): ");
-                        string save = Console.ReadLine();
+                        Console.Write("Save the results into a file?" + Environment.NewLine +
+                            "('y' for simple, 'd' for detail, otherwise nothing): ");
+                        string save = Console.ReadLine().ToLower();
 
-                        if("y".Equals(save.ToLower()))
+                        if("y".Equals(save))
                         {
-                            SaveSearchResult(searchStr, results);
+                            SaveSearchResult(searchStr, results, true);
+                        }
+                        if("d".Equals(save))
+                        {
+                            SaveSearchResult(searchStr, results, false);
                         }
                     }
                 }
             }
         }
 
-        static void SaveSearchResult(string name, List<string> results)
+        static void SaveSearchResult(string name, List<Tuple<int, string>> results, bool range)
         {
             string filename = $"result-{name}.txt";
 
@@ -288,14 +302,63 @@ namespace quest_optimizer
             {
                 File.Delete(filename);
             }
-
-            string[] split = new string[] { " // " };
-
-            File.WriteAllLines(filename, results.Select(item => "// " + string.Join(Environment.NewLine, item.Split(split, StringSplitOptions.RemoveEmptyEntries).Reverse())).ToArray());
+            if(range)
+            {
+                List<string> converted = MakeRange(results);
+                File.WriteAllLines(filename, converted.ToArray());
+            }
+            else
+            {
+                File.WriteAllLines(filename, results.Select(item =>
+                    "// " + item.Item2 + Environment.NewLine
+                    + item.Item1));
+            }
 
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"--- Saved: {Environment.CurrentDirectory}\\{filename}" + Environment.NewLine);
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        static List<string> MakeRange(List<Tuple<int, string>> list)
+        {
+            int pointer = 0;
+            var rangelist = new List<int[]>();
+
+            int[] range = new int[2] {
+                list[0].Item1,
+                0
+            };
+            rangelist.Add(range);
+
+            for(int i = 1; i < list.Count; i++)
+            {
+                int id = list[i].Item1;
+                if(id - rangelist[pointer][1] == 1 || id - rangelist[pointer][0] == 1) // same range
+                {
+                    rangelist[pointer][1] = id;
+                }
+                else // new range
+                {
+                    range = new int[2] {
+                        list[i].Item1,
+                        0
+                    };
+                    rangelist.Add(range);
+                    ++pointer;
+                }
+            }
+            var converted = new List<string>();
+            string line;
+            foreach(var item in rangelist)
+            {
+                line = item[0].ToString();
+                if(item[1] != 0)
+                {
+                    line += $"-{item[1]}";
+                }
+                converted.Add(line);
+            }
+            return converted;
         }
     }
 }

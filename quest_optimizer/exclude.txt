@@ -1,20 +1,32 @@
 // Add quest IDs or ranges (X-Y) that you want to exclude from patching here.
 // Lines starting with "//" and whitespaces will not be read.
+//
+// This is a sample list, it's recommended to save your own copy.
 
-// Pink Bean
-3500-3556
+// Temple of Time (Pink Bean)
+3500-3527
+3529-3556
 
-// Root Abyss
+// [Pink Bean] Breaking the Force Field (BOSS)
+3528
+
+// [Gollux] The Face of Fear
+17534
+
+// [Root Abyss] Gnarled Wooden Key
 30027
 
-// Vanishing Journey
+// Vanishing Journey (34120 is required!!!)
+34120
 34129-34150
 
 // Dark World Tree
 15417-15420
+15708
 
 // Scrapyard
 39101-39164
+39209
 
 // Kritias
 32429-32488
@@ -29,8 +41,8 @@
 // Yu Garden Dailies
 62170-62199
 
-// Gollux Key
-17534
+// Yu Garden Totems
+62128-62130
 
 // Mr. Lee Airlines
 // Beasts of the Deserted Island
@@ -65,16 +77,10 @@
 5867-5893
 5980-5994
 26427-26442
-26509-26595
+26509-26532
+26594
+26595
 61144
-
-// Override Event
-16030-16096
-62432-62437
-15932-15942
-
-// Eluna
-63290-63709
 
 // Misc Dailies (Fishing, DWT, etc.)
 14599
@@ -91,3 +97,50 @@
 
 // Deia's G-potion
 26000
+
+// Inferno Wolf & Pollo & Fritto
+15144-15145
+15148-15149
+49016-49018
+
+// Title - Tot's Pupil
+61208
+// Tot's Guide
+61586-61590
+
+////////////////// GMS v188 Events //////////////////
+
+// Rainbow Event
+16087-16088
+16120-16128
+
+// Club Event
+16129-16147
+16156
+16158
+
+// Titles (Rainbow & Club)
+16151-16155
+
+// Other Events
+16159-16168
+
+// [Event] Dice Master
+63371-63373
+// Title - Dice God
+63374
+
+// [Absolute Taste]
+63743-63744
+
+// [Moon Festival]
+15815-15818
+
+// The World Transfer event
+16056
+
+// [Maple Leaf High]
+52348-52367
+
+// Attendance Check
+61591-61592
