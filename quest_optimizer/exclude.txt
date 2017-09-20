@@ -16,9 +16,20 @@
 // [Root Abyss] Gnarled Wooden Key
 30027
 
-// Vanishing Journey (34120 is required!!!)
-34120
+// Pink Bean prequest
+3500-3563
+
+// Vanishing Journey
 34129-34150
+
+// Chu Chu Island
+34200-34218
+
+// Lachelein
+34300-34331
+34365
+34367
+34370-34376
 
 // Dark World Tree
 15417-15420
@@ -32,7 +43,7 @@
 32429-32488
 
 // Sudden missions
-49001-49015
+49001-49018
 
 // Maple Legion
 16011
@@ -105,8 +116,31 @@
 
 // Title - Tot's Pupil
 61208
+
 // Tot's Guide
 61586-61590
+
+// 5th job
+1460-1466
+1478
+34100
+34101-34120
+
+// Black Heaven
+33120-33320
+
+// Heroes of Maple and Damien
+33911-33958
+33967-33977
+33993
+33994
+34001-34015
+34023
+
+// Maple Guide
+16114
+16115
+39300-39368
 
 ////////////////// GMS v188 Events //////////////////
 
@@ -126,6 +160,7 @@
 16159-16168
 
 // [Event] Dice Master
+
 63371-63373
 // Title - Dice God
 63374
