@@ -1,4 +1,3 @@
-### Build status
 # [Download](https://github.com/shavitush/quest_optimizer/releases/latest)
 
 # Quest Optimizer
